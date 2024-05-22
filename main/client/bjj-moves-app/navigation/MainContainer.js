@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
 // Importing some more stuff
 import { NavigationContainer } from '@react-navigation/native';
@@ -29,7 +31,6 @@ export default function MainContainer() {
 
                     if (routeName === diagramName) {
                         iconName = focused ? 'accessibility' : 'accessibility-outline';
-
                     }
                     else if (routeName === favoritesName) {
                         iconName = focused ? 'heart' : 'heart-outline';
@@ -42,15 +43,17 @@ export default function MainContainer() {
                 },
                 tabBarActiveTintColor: 'tomato',
                 tabBarInactiveinactiveTintColor: 'gray',
-                tabBarLabelStyle: { marginTop: 5, paddingBottom: 10, fontSize: 14},
-                tabBarStyle: {height: 80, backgroundColor: 'black'},
-                tabBarItemStyle: {justifyContent: 'center', alignItems: 'center'},
+                tabBarLabelStyle: { padding: 4, fontSize: 14, borderColor: 'white', borderWidth: 2},
+                tabBarStyle: {height: 80, backgroundColor: 'black', borderColor: 'red', borderWidth: 3},
+                tabBarItemStyle: {justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: 'green'},
             })}>
                 <Tab.Screen name={diagramName} component={DiagramsScreen} options={{headerTitleAlign: 'center'}}/>
                 <Tab.Screen name={favoritesName} component={FavoritesScreen} options={{headerTitleAlign: 'center'}}/>
                 <Tab.Screen name={settingsName} component={SettingsScreen} options={{headerTitleAlign: 'center'}}/>
 
             </Tab.Navigator>
+            <StatusBar style="auto" /> 
         </NavigationContainer>
+        
     );
 }

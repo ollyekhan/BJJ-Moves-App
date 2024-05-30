@@ -1,26 +1,49 @@
 import * as react from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
-export default function DiagramsScreen({navigation}) {
+const headMoveListName = "Head Move List";
+const neckMoveListName = "Neck Move List";
+const armsMoveListName = "Arms Move List";
+const legsMoveListName = "Legs Move List";
+
+function DiagramsScreen({navigation}) {
     return (
         <View style={styles.parentContainer}>
-            <Image source={require('../anatomy-photos/Head.jpg')} style = {styles.imageHead} resizeMode="contain" />
-            <Image source={require('../anatomy-photos/NeckResized.png')} style = {styles.imageNeck} resizeMode="contain" />
+            <TouchableOpacity onPress={() => navigation.navigate(headMoveListName)}>
+                <Image source={require('../anatomy-photos/Head.jpg')} style = {styles.imageHead} resizeMode="contain" />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate(neckMoveListName)}>
+                <Image source={require('../anatomy-photos/NeckResized.png')} style = {styles.imageNeck} resizeMode="contain" />
+            </TouchableOpacity>
+            
 
             <View style={styles.imageContainer}>
-                <Image source={require('../anatomy-photos/LeftArmResized.png')} style = {styles.imageLeftArm} resizeMode="contain" />
+                <TouchableOpacity onPress={() => navigation.navigate(armsMoveListName)}>
+                    <Image source={require('../anatomy-photos/LeftArmResized.png')} style = {styles.imageLeftArm} resizeMode="contain" />
+                </TouchableOpacity>
                 <Image source={require('../anatomy-photos/Torso.png')} style = {styles.imageTorso} resizeMode="contain" />
-                <Image source={require('../anatomy-photos/RightArm.png')} style = {styles.imageRightArm} resizeMode="contain" />
+                <TouchableOpacity onPress={() => navigation.navigate(armsMoveListName)}>
+                    <Image source={require('../anatomy-photos/RightArm.png')} style = {styles.imageRightArm} resizeMode="contain" />
+                </TouchableOpacity>
             </View>
 
             <View style={styles.imageContainer}>
-                <Image source={require('../anatomy-photos/LeftLeg.png')} style = {styles.imageLeftLeg} resizeMode="contain" />
-                <Image source={require('../anatomy-photos/RightLeg.png')} style = {styles.imageRightLeg} resizeMode="contain" />
+                <TouchableOpacity onPress={() => navigation.navigate(legsMoveListName)}> 
+                    <Image source={require('../anatomy-photos/LeftLeg.png')} style = {styles.imageLeftLeg} resizeMode="contain" />
+                </TouchableOpacity>
+                
+                <TouchableOpacity onPress={() => navigation.navigate(legsMoveListName)}>
+                    <Image source={require('../anatomy-photos/RightLeg.png')} style = {styles.imageRightLeg} resizeMode="contain" />
+                </TouchableOpacity>
             </View>
             
         </View>
     );
 }
+
+export default DiagramsScreen;
 
 const styles = StyleSheet.create({
     parentContainer: {
@@ -94,6 +117,5 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 10,
     },
-
     
 })

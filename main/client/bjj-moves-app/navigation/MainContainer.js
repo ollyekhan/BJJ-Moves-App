@@ -34,6 +34,12 @@ const neckMoveListName = "Neck Move List";
 const armsMoveListName = "Arms Move List";
 const legsMoveListName = "Legs Move List";
 
+// Description Screens
+import { RearNakedChokeDescription, TriangleChokeDescription, GuillotineChokeDescription } from './anatomy-descriptions/NeckMoveDescriptions';
+import { FulcrumCrankDescription, SmotherChokeDescription } from './anatomy-descriptions/HeadMoveDescriptions';
+import { AmericanaDescription, KimuraDescription, ArmBarDescription } from './anatomy-descriptions/ArmMoveDescriptions';
+import { StraightAnkleDescription, ToeHoldDescription, HeelHookDescription } from './anatomy-descriptions/LegMoveDescriptions';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -109,6 +115,17 @@ function StackNavigator() {
             <Stack.Screen name={neckMoveListName} component={NeckMoveList} />
             <Stack.Screen name={armsMoveListName} component={ArmsMoveList} />
             <Stack.Screen name={legsMoveListName} component={LegsMoveList} />
+            <Stack.Screen name="RearNakedChokeDescription" component={RearNakedChokeDescription} options={{title: 'Rear Naked'}}/>
+            <Stack.Screen name="TriangleChokeDescription" component={TriangleChokeDescription} options={{title: 'Triangle'}}/>
+            <Stack.Screen name="GuillotineChokeDescription" component={GuillotineChokeDescription} options={{title: 'Guillotine'}}/>
+            <Stack.Screen name="FulcrumCrankDescription" component={FulcrumCrankDescription} options={{title: 'Fulcrum Crank'}}/>
+            <Stack.Screen name="SmotherChokeDescription" component={SmotherChokeDescription} options={{title: 'Smother'}}/>
+            <Stack.Screen name="AmericanaDescription" component={AmericanaDescription} options={{title: 'Americana'}}/>
+            <Stack.Screen name="KimuraDescription" component={KimuraDescription} options={{title: 'Kimura'}}/>
+            <Stack.Screen name="ArmBarDescription" component={ArmBarDescription} options={{title: 'Arm Bar'}}/>
+            <Stack.Screen name="StraightAnkleDescription" component={StraightAnkleDescription} options={{title: 'Straight Ankle Lock'}}/>
+            <Stack.Screen name="ToeHoldDescription" component={ToeHoldDescription} options={{title: 'Toe Hold'}}/>
+            <Stack.Screen name="HeelHookDescription" component={HeelHookDescription} options={{title: 'Heel Hook'}}/>
         </Stack.Navigator>
     );
 }

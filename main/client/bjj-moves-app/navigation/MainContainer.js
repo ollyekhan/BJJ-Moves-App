@@ -14,6 +14,7 @@ import FavoritesScreen from './screens/FavoritesScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import CommunityScreen from './screens/CommunityScreen';
+import LoginAndRegistrationScreen from './screens/LoginAndRegistrationScreen';
 
 // Anatomy List Screens
 import HeadMoveList from './anatomy-based-screens/HeadMoveList';
@@ -27,6 +28,8 @@ const favoritesName = "Favorites";
 const settingsName = "Settings";
 const profileName = "Profile";
 const communityName = "Community";
+const loginName = "Login";
+const mainTabsName = "MainTabs";
 
 // Anatomy List Screen names
 const headMoveListName = "Head Move List";
@@ -109,7 +112,7 @@ function TabNavigator() {
 
 function StackNavigator() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName={diagramName}>
             <Stack.Screen name={diagramName} component={DiagramsScreen} options={{ headerShown: false }}/>
             <Stack.Screen name={headMoveListName} component={HeadMoveList} />
             <Stack.Screen name={neckMoveListName} component={NeckMoveList} />
@@ -134,7 +137,10 @@ function MainContainer() {
     return (
         <NavigationContainer>
             <StatusBar style="auto" />
-            <TabNavigator/>
+            <Stack.Navigator initialRouteName={loginName}>
+                <Stack.Screen name={loginName} component={LoginAndRegistrationScreen} options={{ headerShown: false }} />
+                <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 }

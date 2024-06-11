@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 
+
 function LoginScreen({ navigation }) {
   const [form, setForm] = useState({
     email: '',
@@ -47,10 +48,7 @@ function LoginScreen({ navigation }) {
 
           <View style={styles.formAction}>
             <TouchableOpacity 
-              onPress = {() => {
-                // handle onPress}
-                navigation.replace('MainTabs');
-              }}
+              onPress = {() => navigation.navigate('MainTabs')}
             >
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Sign In</Text>
@@ -134,10 +132,7 @@ function RegistrationScreen({ navigation }) {
 
           <View style={styles.formAction}>
             <TouchableOpacity 
-              onPress = {() => {
-                // handle onPress}
-                // Implement registration logic here
-              }}
+              onPress = {() => Alert.alert('Error', 'An error occurred')}
             >
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Register</Text>
@@ -162,6 +157,8 @@ function RegistrationScreen({ navigation }) {
     </View>
   );
 }
+
+
 export { LoginScreen, RegistrationScreen };
 
 const styles = StyleSheet.create({

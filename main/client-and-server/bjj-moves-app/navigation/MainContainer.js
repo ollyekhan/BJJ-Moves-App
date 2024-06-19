@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
 
 // Importing some more stuff
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,7 +10,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // Screens
 import DiagramsScreen from './screens/DiagramsScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
-import SettingsScreen from './screens/SettingsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import CommunityScreen from './screens/CommunityScreen';
 import { LoginScreen, RegistrationScreen } from './screens/LoginAndRegistrationScreen';
@@ -25,7 +23,6 @@ import LegsMoveList from './anatomy-based-screens/LegsMoveList';
 // Screen names 
 const diagramName = "Diagram";
 const favoritesName = "Favorites";
-const settingsName = "Settings";
 const profileName = "Profile";
 const communityName = "Community";
 const loginName = "Login";
@@ -61,10 +58,6 @@ function TabNavigator() {
                     else if (routeName === favoritesName) {
                         iconName = focused ? 'heart' : 'heart-outline';
                     }
-                    else if (routeName === settingsName) {
-                        iconName = focused ? 'settings' : 'settings-outline';
-                    }
-
                     else if (routeName === profileName) {
                         iconName = focused ? 'person' : 'person-outline';
                     }
@@ -101,11 +94,11 @@ function TabNavigator() {
                     options={{headerTitleAlign: 'center', tabBarLabel: ""}}
                 />
                 
-                <Tab.Screen 
+                {/* <Tab.Screen 
                     name={settingsName} 
                     component={SettingsScreen}
                     options={{headerTitleAlign: 'center', tabBarLabel:""}}
-                />
+                /> */}
                 
             </Tab.Navigator>
     )

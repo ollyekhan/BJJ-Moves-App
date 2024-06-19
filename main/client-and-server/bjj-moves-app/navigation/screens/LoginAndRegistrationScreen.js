@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
-import axios from 'axios';
-
+import { supabase } from '../utils/supabase';
 
 function LoginScreen({ navigation }) {
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
+
+  async function signInUser(email, password) {
+    try 
+    {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      })
+
+      Alert.alert("Sign in successful", "Welcome to BJJ Moves!");
+      navigation.navigate('MainTabs');
+    } 
+    catch (error) {
+      console.log(error)
+      Alert.alert("Sign in failed", error.message);
+    }
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e8ecf4'}}>
@@ -49,7 +65,7 @@ function LoginScreen({ navigation }) {
 
           <View style={styles.formAction}>
             <TouchableOpacity 
-              onPress = {() => navigation.navigate('MainTabs')}
+              onPress = {() => signInUser(form.email, form.password)}
             >
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Sign In</Text>
@@ -83,6 +99,35 @@ function RegistrationScreen({ navigation }) {
     password: '',
     repeatPassword: '',
   });
+
+  async function registerUser(email, password) {
+    if (form.password !== form.repeatPassword) {
+      Alert.alert("Registration failed", "Passwords do not match");
+      return;
+    }
+
+    try {
+      // const { user, error } = await supabase.from('users')
+      // .insert([
+      //   { email: email, password: password },
+      // ])
+      // .select()
+
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+      })
+
+      if (error) throw error;
+
+      Alert.alert("Registration successful", "Woo!");
+      navigation.navigate('Login');
+    } 
+    catch (error) {
+      console.log(error)
+      Alert.alert("Registration failed", error.message);
+    }
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e8ecf4'}}>
@@ -133,7 +178,7 @@ function RegistrationScreen({ navigation }) {
 
           <View style={styles.formAction}>
             <TouchableOpacity 
-              onPress = {() => Alert.alert('Error', 'An error occurred')}
+              onPress = {() => registerUser(form.email, form.password)}
             >
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Register</Text>

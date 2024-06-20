@@ -94,12 +94,6 @@ function TabNavigator() {
                     options={{headerTitleAlign: 'center', tabBarLabel: ""}}
                 />
                 
-                {/* <Tab.Screen 
-                    name={settingsName} 
-                    component={SettingsScreen}
-                    options={{headerTitleAlign: 'center', tabBarLabel:""}}
-                /> */}
-                
             </Tab.Navigator>
     )
 }
@@ -131,9 +125,12 @@ function MainContainer() {
     return (
         <NavigationContainer>
             <StatusBar style="auto" />
-            <Stack.Navigator initialRouteName={loginName}>
+            {/* <Stack.Navigator initialRouteName={loginName}>
                 <Stack.Screen name={loginName} component={LoginScreen} options={{ headerShown: false }} />
                 <Stack.Screen name={registrationName} component={RegistrationScreen} options={{ headerShown: false }} />
+                <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
+            </Stack.Navigator> */}
+            <Stack.Navigator>
                 <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>

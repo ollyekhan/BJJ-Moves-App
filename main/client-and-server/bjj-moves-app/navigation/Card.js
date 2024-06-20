@@ -1,14 +1,23 @@
 import * as react from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function JiuJitsuMovesCard({ image, title, subtitle, description }) {
-    return (
+function JiuJitsuMovesCard({ image, title, subtitle, description, onHeartPress, isHeartRed }) {
+  return (
     <View style={styles.card}>
       <ImageBackground 
         source={image} 
         style={styles.image} 
         imageStyle={styles.imageStyle}
       >
+        <TouchableOpacity onPress={onHeartPress} style={styles.iconContainer}>
+          <Ionicons 
+            name={isHeartRed ? "heart" : "heart-outline"} 
+            size={24} 
+            color={isHeartRed ? "red" : "white"} 
+          />
+        </TouchableOpacity>
         <View style={styles.overlay}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
@@ -18,7 +27,7 @@ function JiuJitsuMovesCard({ image, title, subtitle, description }) {
         <Text style={styles.description}>{description}</Text>
       </View>
     </View>
-    );
+  );
 }
 
 export default JiuJitsuMovesCard;
@@ -43,17 +52,16 @@ const styles = StyleSheet.create({
     imageStyle: {
       opacity: 0.4, // Adjust the opacity to make the image faded
     },
+    iconContainer: {  
+      position: 'absolute',
+      top: 10,
+      right: 10,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      borderRadius: 20,
+      padding: 5,
+    },
     overlay: {
-    //   position: 'absolute',
-    //   top: 0,
-    //   left: 0,
-    //   right: 0,
-    //   bottom: 0,
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-        padding: 10,
-        borderColor: 'black',
-        borderWidth: 2,
+      padding: 5,
     },
     title: {
       fontSize: 24,
@@ -74,9 +82,5 @@ const styles = StyleSheet.create({
       fontSize: 14,
       color: '#333',
       marginBottom: 10,
-    },
-    time: {
-      fontSize: 14,
-      color: '#888',
     },
   });

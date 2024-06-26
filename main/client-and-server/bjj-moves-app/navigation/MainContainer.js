@@ -13,6 +13,7 @@ import FavoritesScreen from './screens/FavoritesScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import CommunityScreen from './screens/CommunityScreen';
 import { LoginScreen, RegistrationScreen } from './screens/LoginAndRegistrationScreen';
+import { FavoritesProvider } from './screens/FavoritesContext';
 
 // Anatomy List Screens
 import HeadMoveList from './anatomy-based-screens/HeadMoveList';
@@ -123,17 +124,19 @@ function StackNavigator() {
 
 function MainContainer() {
     return (
-        <NavigationContainer>
-            <StatusBar style="auto" />
-            {/* <Stack.Navigator initialRouteName={loginName}>
-                <Stack.Screen name={loginName} component={LoginScreen} options={{ headerShown: false }} />
-                <Stack.Screen name={registrationName} component={RegistrationScreen} options={{ headerShown: false }} />
-                <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
-            </Stack.Navigator> */}
-            <Stack.Navigator>
-                <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <FavoritesProvider>
+            <NavigationContainer>
+                <StatusBar style="auto" />
+                {/* <Stack.Navigator initialRouteName={loginName}>
+                    <Stack.Screen name={loginName} component={LoginScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name={registrationName} component={RegistrationScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
+                </Stack.Navigator> */}
+                <Stack.Navigator>
+                    <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </FavoritesProvider>
     );
 }
 

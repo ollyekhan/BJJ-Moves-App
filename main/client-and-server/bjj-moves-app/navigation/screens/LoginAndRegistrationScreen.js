@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Button, StyleSheet, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { supabase } from '../utils/supabase';
 
 function LoginScreen({ navigation }) {
@@ -9,19 +9,17 @@ function LoginScreen({ navigation }) {
   });
 
   async function signInUser(email, password) {
-    try 
-    {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      })
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
 
+    if (error) {
+      Alert.alert(error.message)
+    }
+    else {
       Alert.alert("Sign in successful", "Welcome to BJJ Moves!");
       navigation.navigate('MainTabs');
-    } 
-    catch (error) {
-      console.log(error)
-      Alert.alert("Sign in failed", error.message);
     }
   }
 
@@ -65,7 +63,7 @@ function LoginScreen({ navigation }) {
 
           <View style={styles.formAction}>
             <TouchableOpacity 
-              onPress = {() => signInUser(form.email, form.password)}
+              onPress={() => signInUser(form.email, form.password)}
             >
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Sign In</Text>
@@ -105,28 +103,44 @@ function RegistrationScreen({ navigation }) {
       Alert.alert("Registration failed", "Passwords do not match");
       return;
     }
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
 
-    try {
-      // const { user, error } = await supabase.from('users')
-      // .insert([
-      //   { email: email, password: password },
-      // ])
-      // .select()
-
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-      })
-
-      if (error) throw error;
-
+    if (error) {
+      Alert.alert(error.message)
+    }
+    else {
       Alert.alert("Registration successful", "Woo!");
       navigation.navigate('Login');
-    } 
-    catch (error) {
-      console.log(error)
-      Alert.alert("Registration failed", error.message);
     }
+      
+
+    // try {
+    //   // const { user, error } = await supabase.from('users')
+    //   // .insert([
+    //   //   { email: email, password: password },
+    //   // ])
+    //   // .select()
+
+    //   const { data, error } = await supabase.auth.signUp({
+    //     email: email,
+    //     password: password,
+    //   })
+
+    //   if (error) throw error;
+
+    //   Alert.alert("Registration successful", "Woo!");
+    //   navigation.navigate('Login');
+    // } 
+    // catch (error) {
+    //   console.log(error)
+    //   Alert.alert("Registration failed", error.message);
+    // }
   }
 
   return (
@@ -138,6 +152,7 @@ function RegistrationScreen({ navigation }) {
 
         <View style={styles.form}>
 
+          {/* EMAIL SECTION */}
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Your email</Text>
             <TextInput
@@ -152,6 +167,7 @@ function RegistrationScreen({ navigation }) {
             />
           </View>
 
+          {/* PASSWORD SECTION */}
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Password</Text>
             <TextInput
@@ -164,6 +180,7 @@ function RegistrationScreen({ navigation }) {
             />
           </View>
 
+          {/* REPEAT PASSWORD SECTION */}
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Repeat password</Text>
             <TextInput
@@ -176,9 +193,10 @@ function RegistrationScreen({ navigation }) {
             />
           </View>
 
+          {/* Register button */}
           <View style={styles.formAction}>
             <TouchableOpacity 
-              onPress = {() => registerUser(form.email, form.password)}
+              onPress={() => registerUser(form.email, form.password)}
             >
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Register</Text>

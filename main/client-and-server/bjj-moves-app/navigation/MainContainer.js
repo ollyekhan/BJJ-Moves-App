@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar, Alert } from 'expo-status-bar';
 
 // Importing some more stuff
 import { NavigationContainer } from '@react-navigation/native';
@@ -123,18 +123,19 @@ function StackNavigator() {
 }
 
 function MainContainer() {
+
     return (
         <FavoritesProvider>
             <NavigationContainer>
                 <StatusBar style="auto" />
-                {/* <Stack.Navigator initialRouteName={loginName}>
+                <Stack.Navigator initialRouteName={loginName}>
                     <Stack.Screen name={loginName} component={LoginScreen} options={{ headerShown: false }} />
                     <Stack.Screen name={registrationName} component={RegistrationScreen} options={{ headerShown: false }} />
                     <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
-                </Stack.Navigator> */}
-                <Stack.Navigator>
-                    <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
                 </Stack.Navigator>
+                {/* <Stack.Navigator>
+                    <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
+                </Stack.Navigator> */}
             </NavigationContainer>
         </FavoritesProvider>
     );

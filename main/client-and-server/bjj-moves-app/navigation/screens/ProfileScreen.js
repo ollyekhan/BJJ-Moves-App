@@ -1,49 +1,65 @@
-import * as react from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { supabase } from '../utils/supabase';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function ProfilesScreen({navigation}) {
-    const [profile, setProfile] = react.useState(null);
 
-    react.useEffect(() => {
-        // Fetch the user profile
-        const fetchProfile = async () => {
-            const user = supabase.auth.user();
-            if (user) {
-                const { data, error } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('id', user.user_id)
-                    .single();
-                
-                if (error) {
-                    console.error(error);
-                } else {
-                    setProfile(data);
-                }
+
+export default function ProfilesScreen({ navigation }) {
+
+    const [session, setSession] = useState(null);
+    const [profile, setProfile] = useState({ username: '', full_name: '', avatar_url: '' });
+
+    useFocusEffect(
+        React.useCallback(() => {
+            fetchSession();
+        }, [])
+    );
+
+    async function fetchSession() {
+        const { data: { session } } = await supabase.auth.getSession();
+        setSession(session);
+        if (session) {
+            getProfile(session);
+        }
+    }
+
+    async function getProfile(session) {
+        try {
+            if (!session?.user) throw new Error('No user on the session!');
+
+            const { data, error, status } = await supabase
+                .from('profiles')
+                .select(`username, full_name, avatar_url`)
+                .eq('id', session?.user.id)
+                .single();
+
+            if (error && status !== 406) {
+                throw error;
             }
-        };
 
-        fetchProfile();
-    }, []);
-
-    // if (!profile) {
-    //     return (
-    //         <View style={styles.loadingContainer}>
-    //             <Text>Loading...</Text>
-    //         </View>
-    //     );
-    // }
-
+            if (data) {
+                setProfile({
+                    username: data.username,
+                    full_name: data.full_name,
+                    avatar_url: data.avatar_url
+                });
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                Alert.alert(error.message);
+            }
+        }
+    }
 
     return (
         <View style={styles.parentContainer}>
-            <Text style={styles.title}>[Username]</Text>
+            <Text style={styles.title}>{profile.username || '[Username]'}</Text>
             <View style={styles.profileImgContainer}>
-                <Image style={styles.profileImg} source={{uri: "https://picsum.photos/id/237/200/300"}}/>
+                <Image style={styles.profileImg} source={{ uri: profile.avatar_url || 'https://picsum.photos/id/237/200/300' }}/>
                 <Text style={styles.experienceLevel}>[Experience Level]</Text>
             </View>
-            <Text style={styles.names}>[First and Last Name]</Text>
+            <Text style={styles.names}>{profile.full_name || '[First and Last Name]'}</Text>
             <Text style={styles.personalBio}>[Personal Bio]</Text>
         </View>
     );

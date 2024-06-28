@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { supabase } from '../utils/supabase';
 import { useFocusEffect } from '@react-navigation/native';
 
-
-
 export default function ProfilesScreen({ navigation }) {
 
     const [session, setSession] = useState(null);

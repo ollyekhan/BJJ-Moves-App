@@ -12,6 +12,7 @@ import DiagramsScreen from './screens/DiagramsScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import CommunityScreen from './screens/CommunityScreen';
+import UpdateProfileScreen from './screens/UpdateProfileScreen';
 import { LoginScreen, RegistrationScreen } from './screens/LoginAndRegistrationScreen';
 import { FavoritesProvider } from './screens/FavoritesContext';
 
@@ -29,6 +30,7 @@ const communityName = "Community";
 const loginName = "Login";
 const registrationName = "Registration";
 const mainTabsName = "MainTabs";
+const updateProfileName = "Update Profile";
 
 // Anatomy List Screen names
 const headMoveListName = "Head Move List";
@@ -118,6 +120,7 @@ function StackNavigator() {
             <Stack.Screen name="StraightAnkleDescription" component={StraightAnkleDescription} options={{title: 'Straight Ankle Lock'}}/>
             <Stack.Screen name="ToeHoldDescription" component={ToeHoldDescription} options={{title: 'Toe Hold'}}/>
             <Stack.Screen name="HeelHookDescription" component={HeelHookDescription} options={{title: 'Heel Hook'}}/>
+            <Stack.Screen name={updateProfileName} component={UpdateProfileScreen} options={{title: 'Update Profile'}}/>
         </Stack.Navigator>
     );
 }

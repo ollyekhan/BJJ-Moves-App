@@ -15,6 +15,7 @@ import CommunityScreen from './screens/CommunityScreen';
 import UpdateProfileScreen from './screens/UpdateProfileScreen';
 import { LoginScreen, RegistrationScreen } from './screens/LoginAndRegistrationScreen';
 import { FavoritesProvider } from './screens/FavoritesContext';
+import PostDetailsScreen from './screens/PostDetailsScreen';
 
 // Anatomy List Screens
 import HeadMoveList from './anatomy-based-screens/HeadMoveList';
@@ -121,6 +122,7 @@ function StackNavigator() {
             <Stack.Screen name="ToeHoldDescription" component={ToeHoldDescription} options={{title: 'Toe Hold'}}/>
             <Stack.Screen name="HeelHookDescription" component={HeelHookDescription} options={{title: 'Heel Hook'}}/>
             <Stack.Screen name={updateProfileName} component={UpdateProfileScreen} options={{title: 'Update Profile'}}/>
+            <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{title: 'Post Details'}}/>
         </Stack.Navigator>
     );
 }

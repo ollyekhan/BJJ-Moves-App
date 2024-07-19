@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TextInput, Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { supabase } from '../utils/supabase';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -14,27 +14,21 @@ export default function CommunityScreen({ navigation }) {
         }, [])
     );
 
-    useEffect(() => {
-        if (session) {
-            fetchPosts();
-        }
-    }, [session]);
-
     async function fetchSession() {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (error) {
-            console.error(error);
-        } else {
-            setSession(session);
-        }
+        const { data: { session } } = await supabase.auth.getSession();
+        setSession(session);
     }
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
 
     async function fetchPosts() {
         const { data, error } = await supabase
             .from('posts')
-            .select('id, user_id, content, created_at')
+            .select('id, user_id, content, created_at, profiles!inner(username, avatar_url)')
             .order('created_at', { ascending: false });
-        
+
         if (error) {
             console.error(error);
         } else {
@@ -43,11 +37,10 @@ export default function CommunityScreen({ navigation }) {
     }
 
     async function createPost() {
-        if (!newPostContent) return;
         const { data, error } = await supabase
             .from('posts')
             .insert([{ content: newPostContent, user_id: session?.user.id }]);
-        
+
         if (error) {
             console.error(error);
         } else {
@@ -73,6 +66,16 @@ export default function CommunityScreen({ navigation }) {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate('PostDetails', { postId: item.id })}>
                         <View style={styles.post}>
+                            <TouchableOpacity 
+                                style={styles.postHeader} 
+                                onPress={() => navigation.navigate('UserProfile', { userId: item.user_id })}
+                            >
+                                <Image 
+                                    style={styles.avatar} 
+                                    source={{ uri: item.profiles.avatar_url || 'https://example.com/default-avatar.png' }} 
+                                />
+                                <Text style={styles.username}>{item.profiles.username}</Text>
+                            </TouchableOpacity>
                             <Text>{item.content}</Text>
                             <Text style={styles.timestamp}>{new Date(item.created_at).toLocaleString()}</Text>
                         </View>
@@ -104,6 +107,21 @@ const styles = StyleSheet.create({
         padding: 16,
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
+    },
+    postHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    avatar: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        marginRight: 8,
+    },
+    username: {
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     timestamp: {
         fontSize: 12,

@@ -49,19 +49,17 @@ const styles = StyleSheet.create({
     parentContainer: {
         borderColor: 'purple',
         alignItems: "center",
-        borderWidth: 2,
         justifyContent: "center",
-        flex: 1
+        borderWidth: 2,
+        flex: 1,
     },
     imageContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     image: {
         height: Dimensions.get('window').height * 0.2,
         width: Dimensions.get('window').width * 0.2,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: 'black',
     },
     imageHead: {

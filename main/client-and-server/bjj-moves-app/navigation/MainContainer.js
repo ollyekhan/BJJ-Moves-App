@@ -63,13 +63,13 @@ function TabNavigator() {
                     else if (routeName === favoritesName) {
                         iconName = focused ? 'heart' : 'heart-outline';
                     }
-                    else if (routeName === profileName) {
-                        iconName = focused ? 'person' : 'person-outline';
-                    }
+                    // else if (routeName === profileName) {
+                    //     iconName = focused ? 'person' : 'person-outline';
+                    // }
 
-                    else if (routeName === communityName) {
-                        iconName = focused ? 'people' : 'people-outline';
-                    }
+                    // else if (routeName === communityName) {
+                    //     iconName = focused ? 'people' : 'people-outline';
+                    // }
 
                     return <Ionicons name={iconName} size={size} color={color}/>
                 },
@@ -88,7 +88,7 @@ function TabNavigator() {
                     component={FavoritesScreen}
                     options={{headerTitleAlign: 'center', tabBarLabel: ""}}
                 />
-                <Tab.Screen 
+                {/* <Tab.Screen 
                     name={communityName} 
                     component={CommunityScreen}
                     options={{headerTitleAlign: 'center', tabBarLabel:""}} 
@@ -97,7 +97,7 @@ function TabNavigator() {
                     name={profileName}
                     component={ProfileScreen} 
                     options={{headerTitleAlign: 'center', tabBarLabel: ""}}
-                />
+                /> */}
                 
             </Tab.Navigator>
     )
@@ -135,14 +135,14 @@ function MainContainer() {
         <FavoritesProvider>
             <NavigationContainer>
                 <StatusBar style="auto" />
-                <Stack.Navigator initialRouteName={loginName}>
+                {/* <Stack.Navigator initialRouteName={loginName}>
                     <Stack.Screen name={loginName} component={LoginScreen} options={{ headerShown: false }} />
                     <Stack.Screen name={registrationName} component={RegistrationScreen} options={{ headerShown: false }} />
                     <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
-                </Stack.Navigator>
-                {/* <Stack.Navigator>
-                    <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
                 </Stack.Navigator> */}
+                <Stack.Navigator>
+                    <Stack.Screen name={mainTabsName} component={TabNavigator} options={{ headerShown: false }} />
+                </Stack.Navigator>
             </NavigationContainer>
         </FavoritesProvider>
     );
